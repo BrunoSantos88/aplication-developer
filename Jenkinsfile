@@ -22,7 +22,7 @@ pipeline {
    
     stage('Docker Push') {
      steps {
-       sh 'docker push brunosantos88/aplicationdeveloper:latest'
+       sh 'docker push brunosantos88/aplicationdeveloper:2.0'
      }
    }
    
