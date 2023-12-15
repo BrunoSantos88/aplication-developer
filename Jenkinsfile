@@ -10,7 +10,7 @@ pipeline {
 
     stage('Docker Build') {
      steps {
-      sh 'docker build -t brunosantos88/aplicationdeveloper .'
+      sh 'docker build -t brunosantos88/aplicationdeveloper:2.0 .'
      }
    }
 
