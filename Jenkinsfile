@@ -7,7 +7,7 @@ pipeline {
                 script {
                     // Define the Docker image name and tag
                     def dockerImage = 'brunosantos88/aplicationdeveloper:01'
-                    docker.build(dockerImage, '-f Dockerfile .')
+                    docker.build(dockerImage, '-f dockerfile .')
                     docker.withRegistry('https://registry.example.com', 'docker-credentials-id') {
                     dockerImage.push()
                   }
