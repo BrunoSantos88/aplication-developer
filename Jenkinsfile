@@ -5,7 +5,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('dockerlogin')
     }
 
-                ///Docker STEPS
+ stages {   
+
     stage('Docker Build') {
      steps {
       sh 'docker build -t brunosantos88/aplicationdeveloper .'
@@ -43,5 +44,7 @@ post {
                       attachLog: true
         }
     }
+
+}
 
 }
