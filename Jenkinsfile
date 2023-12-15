@@ -1,4 +1,5 @@
 pipeline {
+
   agent any
 
         environment {
@@ -24,27 +25,6 @@ pipeline {
        sh 'docker push brunosantos88/aplicationdeveloper:latest'
      }
    }
-
-
-post {
-        success {
-            emailext subject: 'Build Success Notification',
-                      body: 'The build was successful. Congratulations!',
-                      recipientProviders: [culprits(), developers()],
-                      to: 'brunosantosc1@gmail.com',
-                      from: 'jenkins@example.com',
-                      attachLog: true
-        }
-        failure {
-            emailext subject: 'Build Failure Notification',
-                      body: 'The build failed. Please check the Jenkins logs for details.',
-                      recipientProviders: [culprits(), developers()],
-                      to: 'brunosantosc1@gmail.com',
-                      from: 'jenkins@example.com',
-                      attachLog: true
-        }
-    }
-
+   
 }
-
 }
