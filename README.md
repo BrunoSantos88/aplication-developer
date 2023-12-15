@@ -10,8 +10,8 @@ cd aplication-developer
 docker-compose up -d
 ````
 - Atraves da porta 8081 acesso ao Jenkin Server
+- Acesso chave jenkins
 ````
-chave jenkins
 docker ps
 docker exec -ti jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ````
