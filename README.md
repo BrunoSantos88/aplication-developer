@@ -1,4 +1,4 @@
-3 Lab Play with docker
+# Lab Play with docker
 
 git clone repository
 ````
