@@ -1,10 +1,10 @@
 # Lab Play with docker
 
-git clone repository
+-  git clone repository
 ````
 git clone https://github.com/BrunoSantos88/aplication-developer.git
 ````
-commandos
+- Commandos
 ````
 cd aplication-developer
 docker-compose up -d
