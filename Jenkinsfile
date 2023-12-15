@@ -4,13 +4,13 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials-id')
     }
-    
- stages {
+
+    stages {
         stage('Build Docker Image') {
             steps {
                 script {
                     // Build the Docker image
-                    sh 'docker build -t brunosantos88/aplicationdeveloper:1 .'
+                    sh 'docker build -t brunosantos88/aplicationdeveloper:latest .'
                 }
             }
         }
@@ -23,14 +23,13 @@ pipeline {
                         sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
                         
                         // Push the Docker image to Docker Hub
-                        sh 'docker push brunosantos88/aplicationdeveloper:1'
+                        sh 'docker push brunosantos88/aplicationdeveloper:latest'
                     }
                 }
             }
         }
     }
 }
-
 
 post {
         success {
