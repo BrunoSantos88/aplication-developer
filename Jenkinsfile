@@ -50,4 +50,3 @@ post {
                       attachLog: true
         }
     }
-}
