@@ -1,35 +1,29 @@
 pipeline {
-    agent any
-    
-    environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials-id')
+  agent any
+
+        environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerlogin')
     }
 
-    stages {
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Build the Docker image
-                    sh 'docker build -t brunosantos88/aplicationdeveloper:latest .'
-                }
-            }
-        }
+                ///Docker STEPS
+    stage('Docker Build') {
+     steps {
+      sh 'docker build -t brunosantos88/aplicationdeveloper .'
+     }
+   }
 
-        stage('Push to Docker Hub') {
-            steps {
-                script {
-                    // Log in to Docker Hub using credentials
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub-credentials-id', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-                        sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
-                        
-                        // Push the Docker image to Docker Hub
-                        sh 'docker push brunosantos88/aplicationdeveloper:latest'
-                    }
-                }
-            }
-        }
+   stage('Docker Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
     }
-}
+   
+    stage('Docker Push') {
+     steps {
+       sh 'docker push brunosantos88/aplicationdeveloper:latest'
+     }
+   }
+
 
 post {
         success {
@@ -49,3 +43,5 @@ post {
                       attachLog: true
         }
     }
+
+}
