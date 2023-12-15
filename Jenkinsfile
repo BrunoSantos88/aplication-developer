@@ -2,25 +2,16 @@ pipeline {
     agent any
     
     stages {
-    
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                sh 'echo "Building your project"'
-                // Add build commands specific to your project
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'echo "Running tests"'
-                // Add test commands specific to your project
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh 'echo "Deploying your application"'
-                // Add deployment commands specific to your project
+                script {
+                    // Define the Docker image name and tag
+                    def dockerImage = 'brunosantos88/aplicationdeveloper:01'
+                    docker.build(dockerImage, '-f Dockerfile .')
+                    docker.withRegistry('https://registry.example.com', 'docker-credentials-id') {
+                    dockerImage.push()
+                  }
+                }
             }
         }
     }
