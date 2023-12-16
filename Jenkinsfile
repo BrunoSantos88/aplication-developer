@@ -1,9 +1,8 @@
 pipeline {
 
-  agent { //here we select only docker build agents
-            docker {
-                image 'maven:latest' //container will start from this image
-	    }
+agent {
+    docker { image 'node:16-alpine' }
+  }
 	  
         environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerlogin')
@@ -16,6 +15,12 @@ stages {
   steps {
   checkout scm
         }
+    }
+
+   stage('Test') {
+      steps {
+        sh 'node --version'
+      }
     }
 	
 	
@@ -45,5 +50,4 @@ stage('Maven Test') {
    }
 
  }
-}
 }
