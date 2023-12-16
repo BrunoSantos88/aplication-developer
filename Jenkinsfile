@@ -1,15 +1,45 @@
 pipeline {
 
   agent any
+	
         environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerlogin')
 	}
-tools { 
-        maven 'Maven 3.3.9' 
-        jdk 'jdk8' 
-    }
 
- stages {   
+
+stages {   
+
+
+ stage('Checkout code') {
+  steps {
+            checkout scm
+        }
+    }
+	
+stage("install maven") {
+      agent { 
+        docker {
+           label "maven" 
+            image "maven:3.8-openjdk-8"
+           }
+           }
+	 
+  # SonarCloud Scanner
+    stage ('Build') {
+    steps {
+        echo 'This is a minimal pipeline.'
+         sh 'mvn clean install'
+    }
+}
+   
+    stage('SonarCloud') {
+            steps {	
+		sh 'mvn clean verify sonar-scanner -Dsonar.organization=cloudsonarscan -Dsonar.projectKey=cloudsonarscan_brunosantos -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
+			}
+        } 
+
+ }
+}
 
     stage('Docker Build') {
      steps {
@@ -28,20 +58,6 @@ tools {
        sh 'docker push brunosantos88/aplicationdeveloper:2.0'
      }
    }
-
-
-   stage ('Build') {
-    steps {
-        echo 'This is a minimal pipeline.'
-         sh 'mvn clean install'
-    }
-}
-   
-    stage('SonarCloud') {
-            steps {	
-		sh 'mvn clean verify sonar-scanner -Dsonar.organization=cloudsonarscan -Dsonar.projectKey=cloudsonarscan_brunosantos -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
-			}
-        } 
 
  }
 }
