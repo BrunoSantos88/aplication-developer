@@ -12,6 +12,23 @@ stages {
   checkout scm
         }
     }
+
+stage('SonarCloud') {
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+      steps {
+        sh 'mvn --version'
+      }
+    }
+
+ stage('SonarIntegration') {
+            steps {	
+		sh 'mvn clean verify sonar-scanner  -Dsonar.organization=cloudsonarscan  -Dsonar.projectKey=cloudsonarscan_brunosantos  -Dsonar.sources=.  -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
+			}
+        } 
+  }
+	
 	
 //Docker Versionamento
     stage('Docker Build') {
