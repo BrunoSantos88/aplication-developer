@@ -49,5 +49,11 @@ stages {
       }
     }
 
+	 stage('SonarCloud Integration') {
+            steps {	
+		sh 'mvn clean verify sonar:sonar sonar-scanner -Dsonar.organization=cloudsonarscan -Dsonar.projectKey=cloudsonarscan_brunosantos  -Dsonar.sources=.  -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
+			}
+        } 
+
  }
 }
