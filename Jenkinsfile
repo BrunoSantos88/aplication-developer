@@ -8,7 +8,7 @@ pipeline {
 
   tools { 
         ///depentencias 
-        docker { image 'maven:3.8.1-adoptopenjdk-11-openj9' } 
+        docker { image 'maven:latest' } 
     }
 
 	
