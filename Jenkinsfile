@@ -34,19 +34,11 @@ pipeline {
     }
 }
    
-  stage('SonarCloud') {
+    stage('SonarCloud') {
+            steps {	
+		sh 'mvn clean verify sonar-scanner -Dsonar.organization=cloudsonarscan -Dsonar.projectKey=cloudsonarscan_brunosantos -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
+			}
+        } 
 
- steps {
-
-sh '''sonar-scanner \
-  -Dsonar.projectKey=ce109f9d97e94fde13f38124ff5bcf2aa4adafac \
-  -Dsonar.organization=cloudsonarscan \
-  -Dsonar.projectKey=cloudsonarscan_brunosantos \
-  -Dsonar.sources=. \
-  -Dsonar.host.url=https://sonarcloud.io
  }
-}
-  
-}
-}
 }
