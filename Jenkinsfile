@@ -21,7 +21,8 @@ stage("install maven") {
             image "maven:3.8-openjdk-8"
            }
            }
-	 
+}
+	
   // SonarCloud Scanner
     stage ('Build') {
     steps {
@@ -35,7 +36,6 @@ stage("install maven") {
 		sh 'mvn clean verify sonar-scanner -Dsonar.organization=cloudsonarscan -Dsonar.projectKey=cloudsonarscan_brunosantos -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
 			}
         } 
- }
 	
 //Docker Versionamento
     stage('Docker Build') {
