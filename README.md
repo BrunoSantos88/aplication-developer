@@ -1,4 +1,4 @@
-# Lab Play with docker Node1
+# Lab Play with docker Node1 Jenkins-Server
 
 -  git clone repository
 ````
@@ -16,7 +16,7 @@ docker ps container name
 docker exec -ti jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ````
 
-# Lab Play with docker Node2
+# Lab Play with docker Node2  Sonarqube-server
 
 -  git clone repository
 ````
@@ -27,3 +27,5 @@ git clone https://github.com/BrunoSantos88/aplication-developer.git
 cd aplication-developer/sonarqube-docker
 docker-compose up -d
 ````
+
+- Atraves da porta 9001 acesso ao Sonarqube Server
