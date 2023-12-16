@@ -38,7 +38,7 @@ stages {
       }
       steps {
         sh 'mvn --version'
-        sh 'mvn clean verify sonar:sonar sonar-scanner -Dsonar.organization=cloudsonarscan -Dsonar.projectKey=cloudsonarscan_brunosantos  -Dsonar.sources=.  -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
+        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=cloudsonarscan_brunosantos -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
       }
     }
 }	
