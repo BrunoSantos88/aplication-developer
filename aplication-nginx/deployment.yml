@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: brunosantos88/aplicationdeveloper:02
+        image: brunosantos88/aplicationdeveloper:2.0
         ports:
         - containerPort: 80
   strategy:
