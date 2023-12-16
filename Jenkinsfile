@@ -32,13 +32,13 @@ stages {
      }
    }
 
-   stage('SonarCloud Intergration') {
+    stage('SonarCloud Scan Frontend') {
       agent {
-        docker { image 'maven:latest' }
+        docker { image 'node:16-alpine' }
       }
       steps {
-        sh 'mvn --version'
-        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=cloudsonarscan_brunosantos -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
+        sh 'node --version'
+        sh 'npm install -g sonarqube-scanner -Dsonar.projectKey=cloudsonarscan_brunosantos -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
       }
     }
 }	
