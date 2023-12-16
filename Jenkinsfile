@@ -1,6 +1,7 @@
 pipeline {
-  agent any
-  
+  agent none
+}
+
 stages {
     stage('Back-end') {
       agent {
