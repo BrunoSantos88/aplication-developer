@@ -34,7 +34,7 @@ stages {
 
    stage('SonarCloud Intergration') {
       agent {
-        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+        docker { image 'maven:latest' }
       }
       steps {
         sh 'mvn --version'
