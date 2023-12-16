@@ -17,3 +17,13 @@ docker exec -ti jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ````
 
 # Lab Play with docker Node2
+
+-  git clone repository
+````
+git clone https://github.com/BrunoSantos88/aplication-developer.git
+````
+- Commandos
+````
+cd aplication-developer/sonarqube-docker
+docker-compose up -d
+````
