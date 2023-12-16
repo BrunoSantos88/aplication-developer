@@ -1,6 +1,9 @@
 pipeline {
 
-  agent any
+  agent { //here we select only docker build agents
+            docker {
+                image 'maven:latest' //container will start from this image
+	    }
         environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerlogin')
 	}
@@ -15,13 +18,7 @@ stages {
     }
 	
 	
-stage('Test') { //on this stage New container will be created, but current pipeline workspace will be remounted to it automatically
-        agent {
-            docker {
-                image 'maven:latest'
-                args '-v /root/.m2:/root/.m2'
-            }
-        }
+stage('Maven Test') { 
         steps {
             sh 'mvn test' 
         }
