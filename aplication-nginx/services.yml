@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: aplication
 spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30050
   selector:
     app: aplication
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: ClusterIP
