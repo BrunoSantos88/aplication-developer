@@ -35,13 +35,11 @@ stages {
 
 	
 stage("install maven") {
-      agent { 
         docker {
            label "maven" 
             image "maven:3.8-openjdk-8"
            }
            }
-}
 	
   // SonarCloud Scanner
     stage ('Build') {
