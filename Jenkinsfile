@@ -24,7 +24,7 @@ stage("install maven") {
            }
            }
 	 
-  # SonarCloud Scanner
+  // SonarCloud Scanner
     stage ('Build') {
     steps {
         echo 'This is a minimal pipeline.'
@@ -40,7 +40,8 @@ stage("install maven") {
 
  }
 }
-
+	
+//Docker Versionamento
     stage('Docker Build') {
      steps {
       sh 'docker build -t brunosantos88/aplicationdeveloper:2.0 .'
