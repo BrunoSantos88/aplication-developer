@@ -12,31 +12,6 @@ stages {
   checkout scm
         }
     }
-
-	/SonarAgentes
-stage('Back-end') {
-      agent {
-        docker { image 'maven:3.8.1-adoptopenjdk-11' }
-      }
-      steps {
-        sh 'mvn --version'
-      }
-    }
-    stage('Front-end') {
-      agent {
-        docker { image 'node:16-alpine' }
-      }
-      steps {
-        sh 'node --version'
-      }
-    }
-
- stage('SonarIntegration') {
-            steps {	
-		sh 'mvn clean verify sonar-scanner  -Dsonar.organization=cloudsonarscan  -Dsonar.projectKey=cloudsonarscan_brunosantos  -Dsonar.sources=.  -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ce109f9d97e94fde13f38124ff5bcf2aa4adafac'
-        } 
-  }
-	
 	
 //Docker Versionamento
     stage('Docker Build') {
@@ -56,6 +31,23 @@ stage('Back-end') {
        sh 'docker push brunosantos88/aplicationdeveloper:2.0'
      }
    }
+
+   stage('Back-end') {
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+      steps {
+        sh 'mvn --version'
+      }
+    }
+    stage('Front-end') {
+      agent {
+        docker { image 'node:16-alpine' }
+      }
+      steps {
+        sh 'node --version'
+      }
+    }
 
  }
 }
