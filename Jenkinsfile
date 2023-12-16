@@ -3,6 +3,7 @@ pipeline {
   agent any
         environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerlogin')
+	}
 tools { 
         maven 'Maven 3.3.9' 
         jdk 'jdk8' 
@@ -43,5 +44,4 @@ tools {
         } 
 
  }
-}
 }
