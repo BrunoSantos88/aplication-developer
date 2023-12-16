@@ -4,6 +4,7 @@ pipeline {
             docker {
                 image 'maven:latest' //container will start from this image
 	    }
+	  
         environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerlogin')
 	}
