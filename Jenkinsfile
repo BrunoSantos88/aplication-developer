@@ -25,6 +25,27 @@ pipeline {
        sh 'docker push brunosantos88/aplicationdeveloper:2.0'
      }
    }
+
+
+   stage ('Build') {
+    steps {
+        echo 'This is a minimal pipeline.'
+         sh 'mvn clean install'
+    }
+}
    
+  stage('SonarCloud') {
+
+ steps {
+
+sh '''sonar-scanner \
+  -Dsonar.projectKey=ce109f9d97e94fde13f38124ff5bcf2aa4adafac \
+  -Dsonar.organization=cloudsonarscan \
+  -Dsonar.projectKey=cloudsonarscan_brunosantos \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=https://sonarcloud.io
+ }
+}
+  
 }
 }
