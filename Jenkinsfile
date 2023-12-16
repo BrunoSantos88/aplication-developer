@@ -3,14 +3,7 @@ pipeline {
 
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerlogin')
-    SNYK_TOKEN = credentials('SNYK_TOKEN')
   }
-
-  tools { 
-        ///depentencias 
-        docker { image 'maven:latest' } 
-    }
-
 	
 stages {
 	
