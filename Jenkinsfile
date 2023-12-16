@@ -11,6 +11,9 @@ pipeline {
         docker { image 'maven:3.8.1-adoptopenjdk-11' } 
     }
 
+	
+stages {
+	
  stage('Checkout code') {
   steps {
   checkout scm
