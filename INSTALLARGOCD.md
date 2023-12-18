@@ -1,4 +1,4 @@
-## Pré-requisitos
+## Pré-requisitos Referencia https://github.com/badtuxx/DescomplicandoArgoCD
 
 Para que possamos continuar daqui para frente, precisamos ter o seguinte instalado:
 
