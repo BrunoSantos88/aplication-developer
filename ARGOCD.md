@@ -1,3 +1,158 @@
+## Pré-requisitos
+
+Para que possamos continuar daqui para frente, precisamos ter o seguinte instalado:
+
+- Um cluster Kubernetes
+- kubectl instalado
+- E muita vontade de aprender
+
+## Instalando o ArgoCD
+
+Primeira coisa, como eu falei anteriormente, o ArgoCD é escrito em GO, o que nos ajuda demais no processo de instalação.
+
+Aqui precisamos dividir essa instalação em duas partes, a instalação do ArgoCD como um operador no Kubernetes, e a instalação do ArgoCD como CLI, para que você possa utilizar o ArgoCD no seu dia a dia.
+
+Ele possui ainda uma interface gráfica, que é o ArgoCD UI, mas não iremos abordar por enquanto, eu quero que a gente fique antes muito confortável com o ArgoCD CLI, que é o que iremos utilizar no nosso dia a dia.
+
+No começo ainda vamos utilizar somente o CLI, mas muito em breve vamos utilizar manifestos para definir as nossa aplicações dentro do ArgoCD.
+
+&nbsp;
+
+### Instalando o ArgoCD como um operador no Kubernetes
+
+Para instalar o ArgoCD como um operador no Kubernetes, antes precisamos criar uma namespace chamada `argocd`, e para isso basta executar o seguinte comando:
+
+```bash
+kubectl create namespace argocd
+```
+
+&nbsp;
+
+A saída desse comando será algo parecido com isso:
+
+```bash
+namespace/argocd created
+```
+
+Agora vamos instalar o ArgoCD como um operador no Kubernetes:
+
+```bash
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+&nbsp;
+
+A saída desse comando será algo parecido com isso:
+
+```bash
+namespace/argocd created
+customresourcedefinition.apiextensions.k8s.io/applications.argoproj.io created
+customresourcedefinition.apiextensions.k8s.io/applicationsets.argoproj.io created
+customresourcedefinition.apiextensions.k8s.io/appprojects.argoproj.io created
+serviceaccount/argocd-application-controller created
+serviceaccount/argocd-applicationset-controller created
+serviceaccount/argocd-dex-server created
+serviceaccount/argocd-notifications-controller created
+serviceaccount/argocd-redis created
+serviceaccount/argocd-repo-server created
+serviceaccount/argocd-server created
+role.rbac.authorization.k8s.io/argocd-application-controller created
+role.rbac.authorization.k8s.io/argocd-applicationset-controller created
+role.rbac.authorization.k8s.io/argocd-dex-server created
+role.rbac.authorization.k8s.io/argocd-notifications-controller created
+role.rbac.authorization.k8s.io/argocd-server created
+clusterrole.rbac.authorization.k8s.io/argocd-application-controller created
+clusterrole.rbac.authorization.k8s.io/argocd-server created
+rolebinding.rbac.authorization.k8s.io/argocd-application-controller created
+rolebinding.rbac.authorization.k8s.io/argocd-applicationset-controller created
+rolebinding.rbac.authorization.k8s.io/argocd-dex-server created
+rolebinding.rbac.authorization.k8s.io/argocd-notifications-controller created
+rolebinding.rbac.authorization.k8s.io/argocd-redis created
+rolebinding.rbac.authorization.k8s.io/argocd-server created
+clusterrolebinding.rbac.authorization.k8s.io/argocd-application-controller created
+clusterrolebinding.rbac.authorization.k8s.io/argocd-server created
+configmap/argocd-cm created
+configmap/argocd-cmd-params-cm created
+configmap/argocd-gpg-keys-cm created
+configmap/argocd-notifications-cm created
+configmap/argocd-rbac-cm created
+configmap/argocd-ssh-known-hosts-cm created
+configmap/argocd-tls-certs-cm created
+secret/argocd-notifications-secret created
+secret/argocd-secret created
+service/argocd-applicationset-controller created
+service/argocd-dex-server created
+service/argocd-metrics created
+service/argocd-notifications-controller-metrics created
+service/argocd-redis created
+service/argocd-repo-server created
+service/argocd-server created
+service/argocd-server-metrics created
+deployment.apps/argocd-applicationset-controller created
+deployment.apps/argocd-dex-server created
+deployment.apps/argocd-notifications-controller created
+deployment.apps/argocd-redis created
+deployment.apps/argocd-repo-server created
+deployment.apps/argocd-server created
+statefulset.apps/argocd-application-controller created
+networkpolicy.networking.k8s.io/argocd-application-controller-network-policy created
+networkpolicy.networking.k8s.io/argocd-applicationset-controller-network-policy created
+networkpolicy.networking.k8s.io/argocd-dex-server-network-policy created
+networkpolicy.networking.k8s.io/argocd-notifications-controller-network-policy created
+networkpolicy.networking.k8s.io/argocd-redis-network-policy created
+networkpolicy.networking.k8s.io/argocd-repo-server-network-policy created
+networkpolicy.networking.k8s.io/argocd-server-network-policy created
+```
+
+&nbsp;
+
+Como você pode ver, com o comando acima configuramos o ArgoCD através da criação de vários objetos no Kubernetes, como por exemplo, um `deployment` para o `argocd-server`, um `service` para o `argocd-server`, um `configmap` para o `argocd-cm`, e por aí vai.
+
+Caso você queira conhecer mais sobre o projeto, vá até o [repositório oficial](https://github.com/argoproj/argo-cd)
+
+&nbsp;
+
+Vamos ver se os pods do ArgoCD foram criados com sucesso:
+
+```bash
+kubectl get pods -n argocd
+```
+
+&nbsp;
+
+A saída desse comando será algo parecido com isso:
+
+```bash
+NAME                                                READY   STATUS    RESTARTS   AGE
+argocd-application-controller-0                     1/1     Running   0          115s
+argocd-applicationset-controller-5f67f4c987-vdtpr   1/1     Running   0          117s
+argocd-dex-server-5859d89dcc-c69fx                  1/1     Running   0          117s
+argocd-notifications-controller-75c986587-7jznn     1/1     Running   0          116s
+argocd-redis-74c8c9c8c6-mzdlv                       1/1     Running   0          116s
+argocd-repo-server-76f77874d7-8qscp                 1/1     Running   0          116s
+argocd-server-64d5654c48-tkv65                      1/1     Running   0          116s
+```
+
+&nbsp;
+
+Onde temos os seguintes pods:
+
+* argocd-application-controller-0 - Responsável por gerenciar os recursos do Kubernetes
+* argocd-applicationset-controller-5f67f4c987-vdtpr - Controller responsável por gerenciar os `ApplicationSets`
+* argocd-dex-server-5859d89dcc-c69fx - Responsável por gerenciar a autenticação
+* argocd-notifications-controller-75c986587-7jznn - Responsável por gerenciar as notificações, como por exemplo, quando um `Application` é atualizado
+* argocd-redis-74c8c9c8c6-mzdlv - Responsável por armazenar os dados do ArgoCD
+* argocd-repo-server-76f77874d7-8qscp - Responsável por gerenciar os repositórios
+* argocd-server-64d5654c48-tkv65 - Responsável por expor a interface gráfica do ArgoCD
+
+&nbsp;
+
+Pronto, apresentados. No decorrer do livro iremos falar mais sobre cada um desses componentes, mas por agora é o que você precisa saber.
+
+Todos os nossos podes estão com o status `Running`, o que significa que eles estão funcionando corretamente.
+
+&nbsp;
+
+
 ## Instalando o ArgoCD CLI
 
 Como eu falei, o ArgoCD possui uma interface gráfica, mas também é possível interagir com ele através de comandos. Para isso, precisamos instalar o `argocd` CLI.
