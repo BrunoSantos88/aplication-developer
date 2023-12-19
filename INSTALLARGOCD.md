@@ -240,3 +240,9 @@ Para fazer a autenticação no ArgoCD, precisamos executar o seguinte comando:
 ```bash
 argocd login localhost:8080
 ```
+
+```Senha provisoria
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+```
