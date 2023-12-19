@@ -19,9 +19,9 @@ stages {
       }
       steps {
         sh 'docker --version'
-#login	sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-#build  sh 'docker build -t brunosantos88/aplicationdeveloper:3.0'
-#push   sh 'docker push brunosantos88/aplicationdeveloper:3.0'
+	sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh 'docker build -t brunosantos88/aplicationdeveloper:3.0'
+        sh 'docker push brunosantos88/aplicationdeveloper:3.0'
       }
     }
 }
