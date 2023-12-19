@@ -15,7 +15,7 @@ stages {
 
  stage('Docker-Pipeline') {
       agent {
-        docker { image 'docker:latest' }
+        docker { image 'visibilityspots/jenkins-docker' }
       }
       steps {
         sh 'docker --version'
