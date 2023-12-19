@@ -222,6 +222,12 @@ Vamos fazer o port-forward para acessar o ArgoCD sem precisar expor:
 ```bash
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
+ou NodePort
+
+````
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+
+````
 
 &nbsp;
 
