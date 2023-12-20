@@ -30,6 +30,16 @@ stages {
         sh 'docker push brunosantos88/aplicationdeveloper:3.0'
       }
     }
+
+	stage('Kubernetes Deployment of ASG Bugg Web Application') {
+	   steps {
+	      withKubeConfig([credentialsId: 'kubelogin']) {
+		  sh ('kubectl create namespace argocd')
+		        sh ('kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml')
+		           sh ('kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'')
+		}
+	      }
+   	}
 	
  }
 }
