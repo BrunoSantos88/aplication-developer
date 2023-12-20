@@ -4,7 +4,7 @@ metadata:
   name: nginx-deployment 
   namespace: aplication
 spec:
-  replicas: 15
+  replicas: 30
   selector:
     matchLabels:
       app: nginx
@@ -21,5 +21,5 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 2
-      maxUnavailable: 2
+      maxSurge: 3
+      maxUnavailable: 3
