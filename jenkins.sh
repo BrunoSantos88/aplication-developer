@@ -1,5 +1,4 @@
 #!/bin/bash
-##dependencias
 sudo apt install maven -y
 sudo apt  install docker.io -y
 sudo apt-get install jq -y
