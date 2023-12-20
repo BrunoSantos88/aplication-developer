@@ -21,20 +21,20 @@ stages {
 
   stage('Docker-build') {
       steps {
-        sh 'docker build -t brunosantos88/aplicationdeveloper:3.0 .'
+        sh 'docker build -t brunosantos88/aplicationdeveloper:4.0 .'
       }
   }
 
  stage('Docker-Push') {
       steps { 
-        sh 'docker push brunosantos88/aplicationdeveloper:3.0'
+        sh 'docker push brunosantos88/aplicationdeveloper:4.0'
       }
     }
 
 	stage('Install Argocd') {
 	   steps {
 	      withKubeConfig([credentialsId: 'kubelogin']) {
-		          sh ('kubectl apply -f ')
+		          sh ('kubectl apply -f aplication-nginx/deployment.yml')
 		          
 		}
 	      }
