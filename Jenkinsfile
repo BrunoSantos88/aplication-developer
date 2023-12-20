@@ -36,6 +36,7 @@ stages {
 	      withKubeConfig([credentialsId: 'kubelogin']) {
 		  sh ('kubectl create namespace argocd')
 		        sh ('kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml')
+		          sh ('kubectl get svc -n argocd')
 		}
 	      }
    	}
