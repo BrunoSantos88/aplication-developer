@@ -34,7 +34,7 @@ stages {
 	stage('Install Argocd') {
 	   steps {
 	      withKubeConfig([credentialsId: 'kubelogin']) {
-		          sh ('kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}' ')
+		          sh ('kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}')
 		          
 		}
 	      }
