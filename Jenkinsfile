@@ -22,7 +22,6 @@ stages {
   stage('Docker-build') {
       steps {
         sh 'docker build -t brunosantos88/aplicationdeveloper:3.0'
-
       }
   }
 
