@@ -31,7 +31,7 @@ stages {
       }
     }
 
-	stage('Kubernetes Deployment of ASG Bugg Web Application') {
+	stage('Install Argocd') {
 	   steps {
 	      withKubeConfig([credentialsId: 'kubelogin']) {
 		  sh ('kubectl create namespace argocd')
